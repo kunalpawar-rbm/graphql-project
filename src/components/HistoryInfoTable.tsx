@@ -2,7 +2,7 @@ import React from 'react';
 import { useQuery, gql } from '@apollo/client';
 import Heading from './Heading';
 
-// Define the GraphQL query
+// Define GraphQL query
 const GET_HISTORIES_DETAILS = gql`
   query GetHistoriesDetails {
     histories {

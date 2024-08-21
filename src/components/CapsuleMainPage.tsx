@@ -4,7 +4,7 @@ import CapsuleInfoTable from './CapsuleInfoTable';
 import CapsulePieChart from './CapsulePieStatusChart';
 import CapsuleTypesBarChart from './CapsuleTypesBarChart';
 
-// Define the GraphQL query
+// Defining GraphQL query
 const GET_CAPSULES_DETAILS = gql`
   query GetCapsulesDetails {
     capsules {
@@ -63,15 +63,19 @@ const CapsuleMainPage: React.FC = () => {
 
   return (
     <div>
-      <div className="flex">
+      <div className="flex flex-col md:flex-row">
         <div className="flex-1 p-2">
-          <CapsuleTypesBarChart types={capsuleTypes}/>
+          <CapsuleTypesBarChart types={capsuleTypes} />
         </div>
         <div className="flex-1 p-2 flex items-center justify-center">
           <CapsulePieChart statusMap={capsuleStatus} />
         </div>
       </div>
-      <CapsuleInfoTable capsules={data?.capsules} />
+      <div className="overflow-x-auto mt-4">
+        <div className="min-w-full">
+          <CapsuleInfoTable capsules={data?.capsules} />
+        </div>
+      </div>
     </div>
   );
 };

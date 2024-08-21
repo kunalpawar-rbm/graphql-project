@@ -4,13 +4,13 @@ import Heading from './Heading';
 type TableOption = 'Ships' | 'Rockets' | 'Capsules' | 'Cores' | 'History';
 
 interface DropdownProps {
-  // dropdown value is in string
+  // Dropdown value is in string
   value: string;
   // onChange which calls handleDropdownChange and returns nothing
   onChange: (event: React.ChangeEvent<HTMLSelectElement>) => void;
 }
 
-const Dropdown: React.FC<DropdownProps> = ({value, onChange}) => {
+const Dropdown: React.FC<DropdownProps> = ({ value, onChange }) => {
   return (
     <div className="flex justify-between items-center bg-cyan-400">
       {/* flex-grow: Makes the div grow and take up all available space within the flex container. Helps in centering the heading. */}

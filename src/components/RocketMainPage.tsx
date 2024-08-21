@@ -76,21 +76,33 @@ const RocketMainPage: React.FC = () => {
   };
 
   const rocketLaunchCostMap: { [key: string]: number } = {
-  }; 
+  };
 
-    (data?.rockets)?.forEach(element => {
-      
-      rocketMassMap[element.name] = element.mass.kg ?? 0;
+  (data?.rockets)?.forEach(element => {
 
-      
-      
-    });
+    if (element?.name != undefined) {
+
+      rocketMassMap[element.name] = (element.mass.kg / (10000)) ?? 0;
+
+      rocketHeightMap[element.name] = element.height.meters ?? 0;
+
+      rocketSuccessRateMap[element.name] = element.success_rate_pct ?? 0;
+
+      rocketLaunchCostMap[element.name] = element.cost_per_launch ?? 0;
+
+      ++rocketStatus[+element.active];
+    }
+  });
 
   return (
     <div>
-      <RocketInfoTable rockets={data.rockets} />
       <div>
-        <RocketMassHeightBarChart />
+        <RocketMassHeightBarChart massMap={rocketMassMap} heightMap={rocketHeightMap} />
+      </div>
+      <div className="overflow-x-auto mt-4">
+        <div className="min-w-full">
+          <RocketInfoTable rockets={data.rockets} />
+        </div>
       </div>
     </div>
   );

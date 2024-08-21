@@ -26,7 +26,6 @@ interface GetHistoriesQueryResult {
     histories: History[];
 }
 
-// HistoryInfoTableContainer component
 const HistoryMainPage: React.FC = () => {
     // Using useQuery hook with TypeScript generics
     const { loading, error, data } = useQuery<GetHistoriesQueryResult>(GET_HISTORIES_DETAILS);
@@ -67,7 +66,11 @@ const HistoryMainPage: React.FC = () => {
             <div>
                 <HistoryEventLineChart eventYearMap={eventFreqMap} />
             </div>
-            <HistoryInfoTable histories={data?.histories} />
+            <div className="overflow-x-auto mt-4">
+                <div className="min-w-full">
+                    <HistoryInfoTable histories={data?.histories} />
+                </div>
+            </div>
         </div>
     );
 };

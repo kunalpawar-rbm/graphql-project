@@ -55,7 +55,7 @@ const ShipMainPage: React.FC = () => {
 
     return (
         <div>
-            <div className='flex'>
+            <div className='flex flex-col md:flex-row'>
                 <div className="flex-1 p-2 flex items-center justify-center">
                     <ShipsPieChart statusMap={shipStatus} />
                 </div>
@@ -63,10 +63,14 @@ const ShipMainPage: React.FC = () => {
                     <ShipTypesBarChart types={shipTypes} />
                 </div>
             </div>
-            <div>
-                <ShipsInfoTable ships={data?.ships} />
+            <div className="overflow-x-auto mt-4"> 
+                <div className="min-w-full"> 
+                    <ShipsInfoTable ships={data?.ships} />
+                </div>
             </div>
         </div>
+
+
     )
 };
 

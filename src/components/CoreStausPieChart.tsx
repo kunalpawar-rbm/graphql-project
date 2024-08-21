@@ -1,6 +1,5 @@
 import React from 'react';
 import Chart from 'react-apexcharts';
-import ApexCharts, { Props as ApexChartsProps } from 'react-apexcharts';
 import Heading from './Heading';
 
 // Define types for the chart options

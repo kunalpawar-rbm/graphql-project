@@ -33,7 +33,7 @@ const CapsulePieChart: React.FC<map> = ({ statusMap }) => {
 
     const series = Object.values(statusMap);
 
-  // Define the options with type annotation
+  // Defining options with type annotation
   const options: ChartOptions = {
     series: [statusMap["activeCount"], statusMap["inActiveCount"]],
     chart: {

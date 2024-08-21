@@ -3,7 +3,7 @@ import { useQuery, gql } from '@apollo/client';
 import CoreInfoTableContainer from './CoreInfoTable';
 import CorePieChart from './CoreStausPieChart';
 
-// Define the GraphQL query
+// Define GraphQL query
 const GET_CORES_DETAILS = gql`
   query GetCoresDetails {
     cores {
@@ -28,7 +28,6 @@ interface GetCoresQueryResult {
     cores: Core[] | undefined;
 }
 
-// CoreInfoTableContainer component
 const CoreMainPage: React.FC = () => {
     // Using useQuery hook with TypeScript generics
     const { loading, error, data } = useQuery<GetCoresQueryResult>(GET_CORES_DETAILS);
@@ -52,7 +51,11 @@ const CoreMainPage: React.FC = () => {
              <div className="flex-1 p-2 flex items-center justify-center">
                 <CorePieChart statusMap={coreStatus} />
             </div>
-            <CoreInfoTableContainer cores={data?.cores} />
+            <div className="overflow-x-auto mt-4"> 
+                <div className="min-w-full"> 
+                    <CoreInfoTableContainer cores={data?.cores} />
+                </div>
+            </div>
         </div>
     );
 };

@@ -19,7 +19,7 @@ interface LineChartOptions {
         enabled: boolean;
     };
     stroke: {
-        curve: 'smooth'; // 'straight' is also acceptable, depending on the curve style
+        curve: 'smooth'; 
     };
     title: {
         text: string;
@@ -36,19 +36,18 @@ interface LineChartOptions {
     };
 }
 
-// Define the props for the LineChart component
+// Define props for the LineChart component
 interface LineChartProps {
     title: string;
     categories: string[];
     data: number[];
 }
 
-// Define the props for the HistoryEventLineChart component
+// Define props for the HistoryEventLineChart component
 interface HistoryEventLineChartProps {
     eventYearMap: { [key: string]: number };
 }
 
-// Functional component for LineChart
 const HistoryEventLineChart: React.FC<HistoryEventLineChartProps> = ({ eventYearMap }) => {
     // Taking all years for x axis
     const categories = Object.keys(eventYearMap);
@@ -72,7 +71,7 @@ const HistoryEventLineChart: React.FC<HistoryEventLineChartProps> = ({ eventYear
             enabled: false
         },
         stroke: {
-            curve: 'smooth' // 'smooth' curve style is often used for line charts
+            curve: 'smooth' 
         },
         title: {
             text: 'No. of Events by Year',

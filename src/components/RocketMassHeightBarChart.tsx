@@ -1,14 +1,15 @@
-import Heading from "./Heading";
+import React from 'react';
 import Chart from 'react-apexcharts';
-import ApexCharts from 'apexcharts';
+import Heading from './Heading';
 
+// Defining the shape of ChartOptions for ApexCharts
 interface ChartOptions {
     series: Array<{
         name: string;
         data: number[];
     }>;
     chart: {
-        type: 'bar' | 'line' | 'area' | 'pie' | 'donut' | 'radar' | 'scatter'; // Extend with other chart types as needed
+        type: 'bar' | 'line' | 'area' | 'pie' | 'donut' | 'radar' | 'scatter'; 
         height: number;
     };
     plotOptions: {
@@ -29,77 +30,101 @@ interface ChartOptions {
     xaxis: {
         categories: string[];
     };
-    yaxis: {
+    yaxis: Array<{
         title: {
             text: string;
         };
-    };
+        labels: {
+            formatter: (value: number) => string;
+        };
+        opposite?: boolean;  
+    }>;
     fill: {
         opacity: number;
     };
     tooltip: {
         y: {
-            formatter: (val: number) => string;
+            formatter: (value: number, { seriesIndex }: { seriesIndex: number }) => string;
         };
     };
 }
 
-interface types {
-    types: { [key: string]: number }
+interface RocketMassHeightBarChartProps {
+    massMap: { [key: string]: number };
+    heightMap: { [key: string]: number };
 }
 
-const RocketMassHeightBarChart: React.FC<types> = ({ types }) => {
+const RocketMassHeightBarChart: React.FC<RocketMassHeightBarChartProps> = ({ massMap, heightMap }) => {
+    const categories = Object.keys(massMap);
+    const massData: number[] = Object.values(massMap);
+    const heightData: number[] = Object.values(heightMap);
+
     const options: ChartOptions = {
         series: [{
             name: 'Mass',
-            data: [44, 55, 57, 56, 61, 58, 63, 60, 66]
+            data: massData,
         }, {
             name: 'Height',
-            data: [76, 85, 101, 98, 87, 105, 91, 114, 94]
+            data: heightData,
         }],
         chart: {
             type: 'bar',
-            height: 350
+            height: 350,
         },
         plotOptions: {
             bar: {
                 horizontal: false,
                 columnWidth: '55%',
-                endingShape: 'rounded'
+                endingShape: 'rounded',
             },
         },
         dataLabels: {
-            enabled: false
+            enabled: false,
         },
         stroke: {
             show: true,
             width: 2,
-            colors: ['transparent']
+            colors: ['transparent'],
         },
         xaxis: {
-            categories: ['Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct'],
+            categories: categories,
         },
-        yaxis: {
+        yaxis: [{
             title: {
-                text: 'Mass(kg), Height(m)'
-            }
-        },
+                text: 'Mass (10^4 kg)',
+            },
+            labels: {
+                formatter: (value) => `${value} * 10^4 kg`,
+            },
+        }, {
+            opposite: true,
+            title: {
+                text: 'Height (m)',
+            },
+            labels: {
+                formatter: (value) => `${value} m`,
+            },
+        }],
         fill: {
-            opacity: 1
+            opacity: 1,
         },
         tooltip: {
             y: {
-                formatter: function (val) {
-                    return "$ " + val + " thousands"
-                }
-            }
-        }
+                formatter: (value, { seriesIndex }) => {
+                    if (seriesIndex === 0) {
+                        return `${value} * 10^4 kg`; // Mass tooltip
+                    } else {
+                        return `${value} m`; // Height tooltip
+                    }
+                },
+            },
+        },
     };
 
     return (
         <div>
             <div className='flex justify-center items-center px-3 py-3'>
-                <Heading heading={"Name vs (Mass & Height)"} />
+                <Heading heading={"Bar Chart"} />
             </div>
             <Chart
                 options={options}
@@ -108,7 +133,7 @@ const RocketMassHeightBarChart: React.FC<types> = ({ types }) => {
                 height={options.chart.height}
             />
         </div>
-    )
+    );
 };
 
 export default RocketMassHeightBarChart;

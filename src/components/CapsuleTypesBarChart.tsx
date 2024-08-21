@@ -1,7 +1,5 @@
-// src/components/BarChart.tsx
 import React from 'react';
 import Chart from 'react-apexcharts';
-import ApexCharts from 'apexcharts';
 import Heading from './Heading';
 
 // Define the types for the chart options
