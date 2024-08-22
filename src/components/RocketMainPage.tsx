@@ -2,6 +2,7 @@ import React from 'react';
 import { useQuery, gql } from '@apollo/client';
 import RocketInfoTable from './RocketInfoTable';
 import RocketMassHeightBarChart from './RocketMassHeightBarChart';
+import RocketPieChart from './RocketPieChart';
 
 // Define the GraphQL query
 const GET_ROCKETS_DETAILS = gql`
@@ -90,14 +91,20 @@ const RocketMainPage: React.FC = () => {
 
       rocketLaunchCostMap[element.name] = element.cost_per_launch ?? 0;
 
-      ++rocketStatus[+element.active];
+      if (+element.active) ++rocketStatus["activeCount"];
+      else ++rocketStatus["inActiveCount"];
     }
   });
 
   return (
     <div>
-      <div>
-        <RocketMassHeightBarChart massMap={rocketMassMap} heightMap={rocketHeightMap} />
+      <div className='flex flex-col md:flex-row'>
+        <div className='flex-1 p-2 '>
+          <RocketMassHeightBarChart massMap={rocketMassMap} heightMap={rocketHeightMap} />
+        </div>
+        <div className='flex-1 p-2 flex items-center justify-center'>
+          <RocketPieChart statusMap={rocketStatus} />
+        </div>
       </div>
       <div className="overflow-x-auto mt-4">
         <div className="min-w-full">
